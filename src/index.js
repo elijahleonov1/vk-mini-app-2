@@ -9,5 +9,5 @@ bridge.send("VKWebAppInit");
 
 ReactDOM.render(<Root />, document.getElementById("root"));
 if (process.env.NODE_ENV === "development") {
-  import("./eruda").then(({ default: eruda }) => {});
+  // import("./eruda").then(({ default: eruda }) => {});
 }
