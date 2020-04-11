@@ -1,17 +1,13 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
+import "core-js/features/map";
+import "core-js/features/set";
+import React from "react";
+import ReactDOM from "react-dom";
+import bridge from "@vkontakte/vk-bridge";
+import Root from "./pages/Root";
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
-);
+bridge.send("VKWebAppInit");
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
+ReactDOM.render(<Root />, document.getElementById("root"));
+if (process.env.NODE_ENV === "development") {
+  import("./eruda").then(({ default: eruda }) => {});
+}
