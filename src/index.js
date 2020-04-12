@@ -5,7 +5,8 @@ import ReactDOM from "react-dom";
 import bridge from "@vkontakte/vk-bridge";
 import Root from "./pages/Root";
 
-bridge.send("VKWebAppInit");
+bridge.send("VKWebAppInit")
+	.then(data => console.log('VKWebAppInit', data));
 
 ReactDOM.render(<Root />, document.getElementById("root"));
 if (process.env.NODE_ENV === "development") {

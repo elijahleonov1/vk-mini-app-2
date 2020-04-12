@@ -7,19 +7,21 @@ import '@vkontakte/vkui/dist/vkui.css';
 import Home from '../panels/Home';
 import Persik from '../panels/Persik';
 
+import {getUser} from '../utils/api';
+
 const App = () => {
   const [activePanel, setActivePanel] = useState('home');
   const [fetchedUser, setUser] = useState(null);
   const [popout, setPopout] = useState(<ScreenSpinner size='large' />);
 
   useEffect(() => {
-    bridge.subscribe(({ detail: { type, data }}) => {
-      if (type === 'VKWebAppUpdateConfig') {
-        const schemeAttribute = document.createAttribute('scheme');
-        schemeAttribute.value = data.scheme ? data.scheme : 'client_light';
-        document.body.attributes.setNamedItem(schemeAttribute);
-      }
+    // getUser();
+    bridge.subscribe((d) => {
+      console.log(d)
     });
+
+    bridge.send("VKWebAppGetFriends", {});
+
     async function fetchData() {
       const user = await bridge.send('VKWebAppGetUserInfo');
       setUser(user);
@@ -27,6 +29,8 @@ const App = () => {
     }
     fetchData();
   }, []);
+
+  
 
   const go = e => {
     setActivePanel(e.currentTarget.dataset.to);
